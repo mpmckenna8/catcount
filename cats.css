@@ -1,0 +1,9 @@
+.catpic {
+  border-width: medium;
+  border-style: solid;
+  border-color: black;
+  display:inline-block;
+  float:left;
+  padding:10px;
+
+}
