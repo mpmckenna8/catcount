@@ -7,3 +7,10 @@
   padding:10px;
 
 }
+
+.lihold{
+  width:200px;
+  height:600px;
+  display:inline-block;
+  float:left;
+}
