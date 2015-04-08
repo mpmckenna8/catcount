@@ -1,0 +1,21 @@
+{
+  "name": "catcount",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mpmckenna8/catcount",
+  "authors": [
+    "Matthew McKenna <mpmckenna8@me.com>"
+  ],
+  "description": "A cat click counting little single page app",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.5"
+  }
+}
