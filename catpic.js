@@ -44,7 +44,9 @@ console.log(Object.keys(cats));
 var octopus = {
   init: function(){
     // make the current cat the first cat in the list
+    if (cats.currcat === null){
     cats.currcat = cats.liscat[0];
+  }
 
   //  console.log(cats)
     catListV.init();
@@ -62,6 +64,19 @@ var octopus = {
   incrementCou:function(){
     cats.currcat.count++;
     catview.render();
+  },
+  changename: function(name){
+    this.currentCat().name = name;
+
+    console.log(cats.currcat)
+//octopus.init();
+//catListV.render();
+  },
+  changecount:function(newcou){
+    this.currentCat().count = newcou;
+  },
+  changeAttrib: function(newa){
+    this.currentCat().attribution = newa;
   }
 
 
@@ -72,13 +87,17 @@ var catListV = {
 
     this.catListElem = document.getElementsByClassName('catli')[0];
 
+    this.adbutton = document.getElementById('adbutt')
+
     this.render()
   },
 
   render: function(){
-    var cat, i, elem;
+    var kitties, cat, i, elem;
 
-    var kitties = octopus.getCats();
+    this.catListElem.innerHTML = '';
+
+    kitties = octopus.getCats();
 
     console.log(kitties);
 
@@ -96,8 +115,18 @@ var catListV = {
         };
       })(cat))
 
+
+
+
+
       this.catListElem.appendChild(elem);
     }
+
+    this.adbutton.addEventListener('click', function(){
+
+      adview.init();
+
+    })
 
   }
 }
@@ -122,19 +151,82 @@ var catview = {
 
   render: function(){
     console.log('now to make them cats show')
-    var hey = octopus.currentCat();
-    console.log(hey);
+    this.hey = octopus.currentCat();
+    console.log('cur cat in view', this.hey);
 
-    this.countElem.textContent = hey.count;
-    this.catImageElem.src = 'pics/' + hey.finame;
-    this.catNameElem.textContent = hey.name;
+    this.countElem.textContent = this.hey.count;
+    this.catImageElem.src = 'pics/' + this.hey.finame;
+    this.catNameElem.textContent = this.hey.name;
 
   }
 }
 
-var chew = document.getElementById('chew');
+var adview = {
+  init: function(){
+    console.log('ready for some adim shizam');
+    this.admin = document.getElementById('admin');
 
-//incOnCli(chew,cats.chewie);
+    this.admin.style.display = 'inline-block';
+
+    this.adname = document.getElementById('catN');
+    this.adfi = document.getElementById('url');
+    this.adcount = document.getElementById('discou');
+    this.cancel = document.getElementById('canadmin')
+
+    this.render();
+
+  },
+  render:function(){
+
+    this.oncat = octopus.currentCat();
+
+    console.log('admin rndering', this.oncat)
+    this.adname.value = this.oncat.name;
+    this.adfi.value = this.oncat.attribution;
+    this.adcount.value = this.oncat.count;
+
+
+
+    this.cancel.addEventListener('click', function(){
+      document.getElementById('admin').style.display = 'none';
+    })
+
+    document.getElementById('adminch').addEventListener('click', function(){
+
+      this.oncat = octopus.currentCat();
+
+      this.adname = document.getElementById('catN').value;
+
+
+
+      console.log('should change stuff', this.oncat.name);
+
+      octopus.changename(this.adname);
+      octopus.changecount(document.getElementById('discou').value)
+
+      octopus.changeAttrib(document.getElementById('url').value)
+      console.log('right before initiing catview')
+      console.log(cats);
+
+    //  this.oncat.count = this.adcout.value;
+
+      catview.render();
+      catListV.render()
+    //  catview.init();
+    //can't use this because we too deep
+    adview.dissapear();
+
+
+    })
+
+  },
+  dissapear:function(){
+    this.admin.style.display = 'none';
+  }
+
+
+}
+
 
 octopus.init();
 
@@ -144,5 +236,6 @@ function Cat(filename, name){
   this.finame = filename;
   this.count = 0;
   this.name = name;
+  this.attribution = 'https://www.udacity.com/course/viewer#!/c-ud989/l-3437288625/m-3530929039'
 
 }
