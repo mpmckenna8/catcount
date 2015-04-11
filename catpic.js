@@ -67,6 +67,50 @@ var octopus = {
   }
 
 
+
+}
+
+
+
+var octopus = {
+  init: function(){
+    // make the current cat the first cat in the list
+    if (cats.currcat === null){
+    cats.currcat = cats.liscat[0];
+  }
+
+  //  console.log(cats)
+    catListV.init();
+    catview.init()
+  },
+  getCats:function(){
+    return cats.liscat;
+  },
+  currentCat: function(){
+    return cats.currcat;
+  },
+  setcurrcat: function(cat){
+    cats.currcat = cat;
+  },
+  incrementCou:function(){
+    cats.currcat.count++;
+    catview.render();
+  },
+  changename: function(name){
+    this.currentCat().name = name;
+
+    console.log(cats.currcat)
+//octopus.init();
+//catListV.render();
+  },
+  changecount:function(newcou){
+    this.currentCat().count = newcou;
+  },
+  changeAttrib: function(newa){
+    this.currentCat().attribution = newa;
+  }
+
+
 }
 
 var catListV = {
@@ -103,7 +147,18 @@ var catListV = {
       })(cat))
 
 
+      elem.textContent = cat.name;
+
+      elem.addEventListener('click', (function(catcopy){
+        return function(){
+          octopus.setcurrcat(catcopy);
+          catview.render();
+        };
+      })(cat))
+
+
       this.catListElem.appendChild(elem);
+
 
     }
 
@@ -112,6 +167,7 @@ var catListV = {
       adview.init();
 
     })
+
 
   }
 }
@@ -169,6 +225,8 @@ var adview = {
     this.adname.value = this.oncat.name;
     this.adfi.value = this.oncat.attribution;
     this.adcount.value = this.oncat.count;
+
+
 
     this.cancel.addEventListener('click', function(){
       document.getElementById('admin').style.display = 'none';

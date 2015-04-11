@@ -14,3 +14,8 @@
   display:inline-block;
   float:left;
 }
+
+
+#admin{
+  display:none;
+}
