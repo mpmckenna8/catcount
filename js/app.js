@@ -1,25 +1,36 @@
-var ViewModel = function(){
-  this.clickCount = ko.observable(0);
-  this.name = ko.observable("Tabby");
-  this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
+var Cat  = function(data){
+  console.log(levels)
+
+  this.clickCount = ko.observable(data.clickCount);
+  this.name = ko.observable(data.name);
+  this.imgSrc = ko.observable(data.imgSrc);
   this.imgAttribution = ko.observable("flicker sthing");
 
-  this.incrementCounter = function(){
-    return this.clickCount(this.clickCount() + 1)
-  }
-
   this.catlev = ko.computed(function(){
-    console.log(this.clickCount())
-    var delev = 'babe'
-    for(i in levels){
-      console.log(typeof(i));
+    //console.log(clickCount())
+    var delev = 'babe';
+    var clicks = this.clickCount();
 
+    // probably not the super safest way to do it since objects don't always keep their order
+    // the levels objet is in catpic.js
 
-      if( this.clickCount()  >= levels[i]){
-        delev = i;
-      }
-
+    if(clicks > 2){
+      devlev = 'todler'
     }
+    if(clicks > 5){
+      devlev = "kiddo";
+    }
+    if(clicks > 12){
+      devlev = "teen";
+    }
+    if(clicks > 19){
+      devlev = "adult";
+    }
+    if(clicks > 30){
+      devlev = "oldie"
+    }
+
+
     return delev
 
 
@@ -32,6 +43,24 @@ var ViewModel = function(){
     "catso",
     "meowser"
   ])
+
+}
+
+var ViewModel = function(){
+
+  this.currentCat = ko.observable( new Cat({
+    clickCount:0,
+    name:"Tabby",
+    imgSrc: "img/434164568_fea0ad4013_z.jpg"
+
+  }) );
+
+
+  this.incrementCounter = function(){
+    return this.clickCount(this.clickCount() + 1)
+  }
+
+
 
 }
 
