@@ -5,8 +5,37 @@ var ViewModel = function(){
   this.imgAttribution = ko.observable("flicker sthing");
 
   this.incrementCounter = function(){
-    this.clickCount(this.clickCount() + 1)
+    return this.clickCount(this.clickCount() + 1)
   }
+
+  this.catlev = ko.computed(function(){
+    console.log(this.clickCount())
+    var delev = 'babe'
+    for(i in levels){
+      console.log(typeof(i));
+
+
+      if( this.clickCount()  >= levels[i]){
+        delev = i;
+      }
+
+    }
+    return delev
+
+
+  }, this)
+
+  this.nicknames = ko.observableArray([
+    "kitty",
+    "hairy",
+    "fur monster",
+    "catso",
+    "meowser"
+  ])
+
 }
 
+
+
+console.log(levels.baby)
 ko.applyBindings(new ViewModel());
